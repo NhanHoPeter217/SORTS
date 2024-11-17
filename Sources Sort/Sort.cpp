@@ -80,12 +80,19 @@ void insertionSort(int arr[], int n, long long& d)
 void bubbleSort(int arr[], int n)
 {
     int i, j;
+    bool swapped;
     for (i = 0; i < n - 1; i++) {
+        swapped = false;
         for (j = 0; j < n - i - 1; j++) {
             if (arr[j] > arr[j + 1]) {
                 swap(arr[j], arr[j + 1]);
+                swapped = true;
             }
         }
+        
+        // If no two elements were swapped, then break
+        if (!swapped)
+            break;
     }
 }
 void bubbleSort(int arr[], int n, long long& d)
@@ -186,13 +193,12 @@ void merge(int arr[], int l, int m, int r, long long& d)
 
 void mergeSort(int arr[], int l, int r)
 {
-    if (l < r)
-    {
-        int m = l + (r - l) / 2;
-        mergeSort(arr, l, m);
-        mergeSort(arr, m + 1, r);
-        merge(arr, l, m, r);
-    }
+    if (l >= r) return;
+
+    int m = l + (r - l) / 2;
+    mergeSort(arr, l, m);
+    mergeSort(arr, m + 1, r);
+    merge(arr, l, m, r);
 }
 void mergeSort(int arr[], int l, int r, long long& d)
 {
